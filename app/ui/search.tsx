@@ -18,6 +18,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
     if (text) params.set('query', text);
     else params.delete('query');
 
+    params.set('page', '1'); // Reset page to 1 when searching, so the user sees the first page of resul
+
     replace(`${pathname}?${params.toString()}`);
   }, WAIT_BETWEEN_SEARCH);
 

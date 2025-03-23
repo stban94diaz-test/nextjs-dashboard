@@ -5,6 +5,7 @@ import Search from "@/app/ui/search";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 import InvoicesTable from "@/app/ui/invoices/table";
 import Pagination from "@/app/ui/invoices/pagination";
+import { fetchInvoicesPages } from "@/app/lib/data";
 
 export default async function Page({
   searchParams,
@@ -16,6 +17,8 @@ export default async function Page({
 }) {
   const { query="", page } = await searchParams;
   const currentPage = Number(page || 1);
+
+  const totalPages = await fetchInvoicesPages(query);
 
   return (
     <div className="w-full">
@@ -30,7 +33,7 @@ export default async function Page({
         <InvoicesTable query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );
